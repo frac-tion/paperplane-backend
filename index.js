@@ -22,16 +22,10 @@ var avahiService = null;
 
 app.use(cors());
 
-app.engine( '.hbs', exphbs( { extname: '.hbs' } ) );
-app.set('view engine', '.hbs');
-
-app.get( '/', function( req, res, next ){
-  return res.render( 'index' );
-});
+app.use(express.static(__dirname + '/public'));
 
 app.get( '/peers', function( req, res, next ){
   getPeers(function (services) {
-    console.log(services);
     return res.json(services);
   });
 });
@@ -50,7 +44,6 @@ app.get( '/disable', function( req, res, next ){
 
 app.post( '/upload', upload.single('file'), function( req, res, next ) {
   var dimensions = sizeOf( req.file.path );
-  console.log(req.file);
 
   return res.status( 200 ).send( req.file );
 });
