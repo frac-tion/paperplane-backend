@@ -80,6 +80,7 @@ function getPeers(cb) {
   }); 
 }
 
+publishService(function msg(){});
 function publishService(cb) {
   //shell comand: avahi-publish -s paperplane _http._tcp 3000 "Download this files"
   if (avahiService !== null) {
