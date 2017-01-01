@@ -22,7 +22,7 @@ var avahiService = null;
 
 app.use(cors());
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/paperplane-frontend'));
 
 app.get( '/peers', function( req, res, next ){
   getPeers(function (services) {

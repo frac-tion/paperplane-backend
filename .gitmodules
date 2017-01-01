@@ -1,0 +1,3 @@
+[submodule "paperplane-frontend"]
+	path = paperplane-frontend
+	url = git@github.com:frac-tion/paperplane-frontend.git
