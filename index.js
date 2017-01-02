@@ -1,10 +1,13 @@
 const PORT = 3000;
 var express   =   require( 'express' );
 var multer    =   require( 'multer' );
-var sizeOf    =   require( 'image-size' );
 var exphbs    =   require( 'express-handlebars' );
 var cors      =   require('cors');
 var exec      =   require('child_process').exec;
+var filesize = require('file-size');
+var notifications = require( 'freedesktop-notifications' ) ;
+var bodyParser = require('body-parser');
+
 require( 'string.prototype.startswith' );
 
 var storage = multer.diskStorage({
@@ -21,7 +24,7 @@ var app = express();
 var avahiService = null;
 
 app.use(cors());
-
+//app.use(bodyParser.json({limit: '1mb'}));
 app.use(express.static(__dirname + '/paperplane-frontend'));
 
 app.get( '/peers', function( req, res, next ){
@@ -43,7 +46,8 @@ app.get( '/disable', function( req, res, next ){
 });
 
 app.post( '/upload', upload.single('file'), function( req, res, next ) {
-  var dimensions = sizeOf( req.file.path );
+  showNotification({origin: "Somebody", name: req.file.originalname, size: filesize(req.file.size)});
+  console.log(req.file);
 
   return res.status( 200 ).send( req.file );
 });
@@ -104,4 +108,29 @@ function hideService(cb) {
     avahiService = null;
   }
   cb({"status": "disabled"});
+}
+
+function showNotification(file) {
+  var notif = notifications.createNotification( {
+    summary: 'Incoming file' ,
+    body: file.origin + ' is sending you the file ' + file.name + " (" + file.size.human('si') + ")" ,
+    icon: __dirname + '/log.png' ,
+    "sound-file": __dirname + '/hiss.wav' ,
+    actions: {
+      default: '' ,
+        cancel: 'Cancel' ,
+        accept: 'Accept'
+    }
+  } ) ;
+
+  notif.on( 'action' , function( action ) {
+    console.log( "Action '%s' was clicked!" , action ) ;
+  } ) ;
+
+  notif.on( 'close' , function( closedBy ) {
+    console.log( "Closed by: '%s'" , closedBy ) ;
+  } ) ;
+
+  notif.push() ;
+
 }
