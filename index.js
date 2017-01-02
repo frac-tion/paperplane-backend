@@ -6,7 +6,7 @@ var cors      =   require('cors');
 var exec      =   require('child_process').exec;
 var filesize = require('file-size');
 var notifications = require( 'freedesktop-notifications' ) ;
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 
 require( 'string.prototype.startswith' );
 
