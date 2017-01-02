@@ -10,6 +10,7 @@
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "file-size": "^1.0.0",
+    "freedesktop-notifications": "^1.2.2",
     "handlebars": "^4.0.4",
     "multer": "^1.1.0",
     "string.prototype.startswith": "^0.2.0"
