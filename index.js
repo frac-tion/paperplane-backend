@@ -13,9 +13,12 @@ var os = require('os');
 require( 'string.prototype.startswith' );
 
 
-var upload = createStorage("upload/");
+var upload = createStorage();
 
 function createStorage(dir) {
+  if (dir === "" || dir == undefined)
+    dir = path.join(os.homedir(), "Downloads");
+
   currentDir = dir;
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
