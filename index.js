@@ -68,7 +68,7 @@ app.get( '/setDir', function( req, res, next ){
 // Usage: host/changeName?name=Jeff's Laptop
 // if name is not set this query will response with the current name
 // Response: {status: "status msg", name: "currentName"}
-app.get( '/changeName', function( req, res, next ){
+app.get( '/setName', function( req, res, next ){
   setName(req.query.name, function (msg) {
     return res.json(msg);
   });
