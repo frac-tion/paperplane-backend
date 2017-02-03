@@ -199,8 +199,10 @@ function showNotification(file) {
   notif.on( 'action' , function( action ) {
     console.log("Action '%s' was clicked!" , action) ;
     switch (action) {
-      'Cancel' : console.log("Should remove file");
-      'Accept' : console.log("Should do nothing");
+      case 'Cancel' : console.log("Should remove file");
+                  break;
+      case 'Accept' : console.log("Should do nothing");
+                  break;
     }
   } ) ;
 
